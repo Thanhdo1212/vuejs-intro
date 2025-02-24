@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-const count = ref(0)
-const state = reactive({
-  count,
+import { computed, ref } from 'vue'
+// writable computed
+const firstName = ref('Do Duc')
+const lastName = ref('Thanh')
+
+const fullName = computed({
+  get() {
+    return firstName.value + ' ' + lastName.value
+  },
+  set(newName) {
+    ;[firstName.value, lastName.value] = newName.split(',')
+  },
 })
-const updateCount = () => {
-  state.count++
+
+const changeName = () => {
+  fullName.value = 'Pham Khanh,Ly'
 }
-console.log(state.count)
 </script>
 <template>
-  <p id="count">{{ count }}</p>
-  <button @click="updateCount">Tăng</button>
+  <h1>Your Name : {{ fullName }}</h1>
+  <button @click="changeName">Change Your Name</button>
 </template>
