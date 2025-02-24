@@ -1,85 +1,38 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { isVoidExpression } from 'typescript'
+import { ref } from 'vue'
+
+const name = ref('')
+
+const imgUrl = ref('https://masteringjs.io/assets/images/vue/vue.png')
+const altContent = ref('this is vuejs logo')
+const score = Math.floor(Math.random() * 10)
+
+const isVisible = ''
+const dynamicAttr = ref('href')
+const link = ref('https://vuejs.org')
+
+// truly and falsy
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div>
+    <!-- v-bind -->
+    <img v-bind:src="imgUrl" :alt="altContent" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <!-- two way binding - v-model -->
+    <input v-model="name" placeholder="Nhập tên của bạn" />
+    <p>Xin chào, {{ name }}</p>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <!-- v-if, v-else-if, v-else -->
+    <h1 v-if="score < 4">F</h1>
+    <h1 v-else-if="score < 8">B</h1>
+    <h1 v-else>A</h1>
 
-  <RouterView />
+    <!-- v-show -->
+    <h1 v-show="isVisible">Hello anh em</h1>
+
+    <!-- Dùng Dynamic Argument với v-bind để bind thuộc tính động -->
+    <a :[dynamicAttr]="link" style="text-decoration: none">Nhấn vào đây</a>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
