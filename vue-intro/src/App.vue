@@ -1,38 +1,26 @@
 <script setup lang="ts">
-import { isVoidExpression } from 'typescript'
 import { ref } from 'vue'
+const msg = ref('xin chao vue 3')
+const changeMsg = () => (msg.value = 'xin chao vue 4')
 
-const name = ref('')
+// deep reactivity
 
-const imgUrl = ref('https://masteringjs.io/assets/images/vue/vue.png')
-const altContent = ref('this is vuejs logo')
-const score = Math.floor(Math.random() * 10)
-
-const isVisible = ''
-const dynamicAttr = ref('href')
-const link = ref('https://vuejs.org')
-
-// truly and falsy
+const obj = ref({
+  nested: { count: 0 },
+  arr: ['foo', 'bar'],
+})
+const mutateDeeply = () => {
+  // những thay đổi này sẽ hoạt động như mong đợi.
+  obj.value.nested.count++
+  obj.value.arr.push('baz')
+}
 </script>
 
 <template>
   <div>
-    <!-- v-bind -->
-    <img v-bind:src="imgUrl" :alt="altContent" />
-
-    <!-- two way binding - v-model -->
-    <input v-model="name" placeholder="Nhập tên của bạn" />
-    <p>Xin chào, {{ name }}</p>
-
-    <!-- v-if, v-else-if, v-else -->
-    <h1 v-if="score < 4">F</h1>
-    <h1 v-else-if="score < 8">B</h1>
-    <h1 v-else>A</h1>
-
-    <!-- v-show -->
-    <h1 v-show="isVisible">Hello anh em</h1>
-
-    <!-- Dùng Dynamic Argument với v-bind để bind thuộc tính động -->
-    <a :[dynamicAttr]="link" style="text-decoration: none">Nhấn vào đây</a>
+    <h1>{{ msg }}</h1>
+    <h2>{{ obj }}</h2>
+    <button @click="changeMsg">Change message</button>
+    <button style="height: 50px; width: 200px" @click="mutateDeeply">mutate Deeply</button>
   </div>
 </template>
