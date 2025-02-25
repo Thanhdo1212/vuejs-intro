@@ -1,23 +1,16 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-// writable computed
-const firstName = ref('Do Duc')
-const lastName = ref('Thanh')
+<template>
+  <div :style="[baseStyles, overridingStyles]">Hello Vue</div>
+</template>
 
-const fullName = computed({
-  get() {
-    return firstName.value + ' ' + lastName.value
-  },
-  set(newName) {
-    ;[firstName.value, lastName.value] = newName.split(',')
-  },
+<script setup lang="ts">
+import { reactive } from 'vue'
+
+const baseStyles = reactive({
+  color: 'red',
+  fontSize: '20px',
 })
 
-const changeName = () => {
-  fullName.value = 'Pham Khanh,Ly'
-}
+const overridingStyles = reactive({
+  fontSize: '25px',
+})
 </script>
-<template>
-  <h1>Your Name : {{ fullName }}</h1>
-  <button @click="changeName">Change Your Name</button>
-</template>
