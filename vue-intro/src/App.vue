@@ -1,31 +1,22 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+import children from './children.vue'
+const count = ref(0)
 
-const question = ref('')
-const answer = ref('Questions usually contain a question mark. ;-)')
-const loading = ref(false)
+//event component
 
-// Theo dõi sự thay đổi của question
-watch(question, async (newQuestion) => {
-  if (newQuestion.includes('?')) {
-    loading.value = true
-    answer.value = 'Thinking...'
-    try {
-      const res = await fetch('https://yesno.wtf/api')
-      answer.value = (await res.json()).answer
-    } catch (error) {
-      answer.value = 'Error! Could not reach the API. ' + error
-    } finally {
-      loading.value = false
-    }
-  }
-})
+const increase = () => {
+  count.value++
+}
+
+const decrease = () => {
+  count.value--
+}
 </script>
 
 <template>
-  <p>
-    Hỏi một câu hỏi có thể trả lời bằng "có" hoặc "không":
-    <input v-model="question" :disabled="loading" />
-  </p>
-  <p>{{ answer }}</p>
+  <h1>Props in Vuejs</h1>
+
+  <h1>Count is : {{ count }}</h1>
+  <children @increase="increase" @decrease="decrease" />
 </template>
