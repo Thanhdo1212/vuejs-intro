@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import children from './children.vue'
-const count = ref(0)
+import { provide, ref } from 'vue'
+import GrandChild from './GrandChild.vue'
 
-//event component
-
-const increase = () => {
-  count.value++
+const location = ref('Vietnam')
+const changeLocation = () => {
+  location.value = 'California, America'
 }
 
-const decrease = () => {
-  count.value--
-}
+// if you want to pass an att but readonly, you can usse readonly()
+
+provide('locate', { location, changeLocation })
 </script>
 
 <template>
-  <h1>Props in Vuejs</h1>
-
-  <h1>Count is : {{ count }}</h1>
-  <children @increase="increase" @decrease="decrease" />
+  <GrandChild />
 </template>
